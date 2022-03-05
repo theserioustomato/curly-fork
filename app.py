@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 from flask import Flask, request, render_template
 import joblib
 
@@ -21,36 +15,38 @@ app = Flask(__name__)
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
-        Purchases = request.form.get("Purchases")
-        SuppCard = request.form.get("SuppCard")
+        Income = request.form.get("Income")
+        Age = request.form.get("Age")
+        Loan = request.form.get("Loan")
 
-        print(Purchases)
-        print(SuppCard)
+        print(Income)
+        print(Age)
+        print(Loan)
         
-        model1 = joblib.load("CCU_Reg")
-        pred1 = model1.predict([[float(Purchases), float(SuppCard)]])
+        model1 = joblib.load("CCD_Reg")
+        pred1 = model1.predict([[float(Income), float(Age), float(Loan)]])
         print(pred1)
-        out1 = "Predicted CCU base on Linear Regression Model is: " + str(pred1)
+        out1 = "Predicted credit card default based on Linear Regression Model is: " + str(pred1)
 
-        model2 = joblib.load("CCU_DT")
-        pred2 = model2.predict([[float(Purchases), float(SuppCard)]])
+        model2 = joblib.load("CCD_DT")
+        pred2 = model2.predict([[float(Income), float(Age), float(Loan)]])
         print(pred2)
-        out2 = "Predicted CCU base on Decision Tree Model is: " + str(pred2)
+        out2 = "Predicted credit card default based on Decision Tree Model is: " + str(pred2)
 
-        model3 = joblib.load("CCU_GBC")
-        pred3 = model3.predict([[float(Purchases), float(SuppCard)]])
+        model3 = joblib.load("CCD_GBC")
+        pred3 = model3.predict([[float(Income), float(Age), float(Loan)]])
         print(pred3)
-        out3 = "Predicted CCU base on GBC is: " + str(pred3)
+        out3 = "Predicted credit card default based on GBC is: " + str(pred3)
 
-        model4 = joblib.load("CCU_NN")
-        pred4 = model4.predict([[float(Purchases), float(SuppCard)]])
+        model4 = joblib.load("CCD_NN")
+        pred4 = model4.predict([[float(Income), float(Age), float(Loan)]])
         print(pred4)
-        out4 = "Predicted CCU base on Neural Network Model is: " + str(pred4)
+        out4 = "Predicted credit card default based on Neural Network Model is: " + str(pred4)
 
-        model5 = joblib.load("CCU_RF")
-        pred5 = model5.predict([[float(Purchases), float(SuppCard)]])
+        model5 = joblib.load("CCD_RF")
+        pred5 = model5.predict([[float(Income), float(Age), float(Loan)]])
         print(pred5)
-        out5 = "Predicted CCU base on Random Forest Model is: " + str(pred5)
+        out5 = "Predicted credit card default based on Random Forest Model is: " + str(pred5)
         
         
         return(render_template("index.html", result1=out1, result2=out2, result3=out3, result4=out4, result5=out5))
@@ -65,10 +61,3 @@ def index():
 
 if __name__ == "__main__":
     app.run()
-
-
-# In[ ]:
-
-
-
-
